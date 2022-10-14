@@ -1,0 +1,3 @@
+ill be needing this
+f = open("./profanity.txt", "r")
+        for swear in f.read():
