@@ -28,5 +28,5 @@ class RollTheDice(commands.Cog):
         except:
             return False
 
-def setup(client):
-    client.add_cog(RollTheDice(client)) 
+async def setup(client):
+    await client.add_cog(RollTheDice(client)) 

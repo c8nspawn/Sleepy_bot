@@ -63,19 +63,26 @@ class Events(commands.Cog):
             #1/10* chance to send a meme version of the text with the actual spongebob meme image, this ones more of a pipedream but doable
             if message.content.lower() not in self.messageList:
                 self.messageList.clear()
-                self.messageList.append(rd.randint(0,4))
+                random_number = rd.choices([0,1,2,3], weights = [1, 0 ,0 ,0])[0]
+                self.messageList.append(random_number)
                 self.messageList.append(message.content.lower())
                 self.loop_guard = True
 
             if message.content.lower() == self.messageList[1] and not self.loop_guard:
                 self.messageList.append(message.content.lower())
 
-            if self.messageList[0] + 1 == len(self.messageList):
+            if (self.messageList[0] != 0) and (self.messageList[0] + 2 == len(self.messageList)):
                 self.messageList.clear()
                 await message.channel.send(message.content)
+            elif self.messageList[0] == 0:
+                sponge_message = str()
+                sponge_list = message.content.lower().split()
+                # rewrite me
+                sponge_message = ' '.join(sponge_list)    
+                await message.channel.send(sponge_message)
 
             #bruh mining event from js bot, worked p well.
             #think about ways to improve it
 
-def setup(client):
-    client.add_cog(Events(client)) 
+async def setup(client):
+    await client.add_cog(Events(client)) 

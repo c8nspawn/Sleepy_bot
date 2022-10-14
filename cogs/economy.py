@@ -11,5 +11,5 @@ class Economy(commands.Cog):
     #gamba mini-games, maybe this time add some roulette people can play together
     
 
-def setup(client):
-    client.add_cog(Economy(client)) 
+async def setup(client):
+    await client.add_cog(Economy(client)) 
