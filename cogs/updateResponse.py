@@ -86,5 +86,5 @@ class updateResponse(commands.Cog):
 
 
 
-async def setup(client):
-    await client.add_cog(updateResponse(client)) 
+def setup(client):
+    client.add_cog(updateResponse(client)) 

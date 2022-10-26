@@ -52,5 +52,5 @@ class Magic8ball(commands.Cog):
 
     
 
-async def setup(client):
-    await client.add_cog(Magic8ball(client)) 
+def setup(client):
+    client.add_cog(Magic8ball(client)) 

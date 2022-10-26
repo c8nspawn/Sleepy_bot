@@ -39,7 +39,8 @@ class Events(commands.Cog):
     
     @commands.Cog.listener()
     async def on_message(self, message):
-        if not message.author.bot:
+        if message.content.startswith('$'): return
+        if not message.author.bot: 
             self.loop_guard = False
         
         #swear detector
@@ -63,7 +64,7 @@ class Events(commands.Cog):
             #1/10* chance to send a meme version of the text with the actual spongebob meme image, this ones more of a pipedream but doable
             if message.content.lower() not in self.messageList:
                 self.messageList.clear()
-                random_number = rd.choices([0,1,2,3], weights = [1, 0 ,0 ,0])[0]
+                random_number = rd.choices([0,1,2,3], weights = [.4, .32, .32 ,.32])[0]
                 self.messageList.append(random_number)
                 self.messageList.append(message.content.lower())
                 self.loop_guard = True
@@ -76,13 +77,17 @@ class Events(commands.Cog):
                 await message.channel.send(message.content)
             elif self.messageList[0] == 0:
                 sponge_message = str()
-                sponge_list = message.content.lower().split()
-                # rewrite me
-                sponge_message = ' '.join(sponge_list)    
+                sponge_list = [*message.content.lower()]
+                count = 0
+                for i,x in enumerate(sponge_list):
+                    if x == " ": continue
+                    count+=1
+                    if count % 2 == 0: sponge_list[i] = x.upper()
+                sponge_message = ''.join(sponge_list)    
                 await message.channel.send(sponge_message)
 
             #bruh mining event from js bot, worked p well.
             #think about ways to improve it
 
-async def setup(client):
-    await client.add_cog(Events(client)) 
+def setup(client):
+    client.add_cog(Events(client)) 
